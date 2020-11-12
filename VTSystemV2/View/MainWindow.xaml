@@ -1,0 +1,291 @@
+﻿<Window xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors"  x:Name="mainwindow" x:Class="VTSystemV2.View.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:local="clr-namespace:VTSystemV2.Properties"
+        mc:Ignorable="d" Height="923" Width="1495" WindowStartupLocation="CenterScreen" Background="{StaticResource Background}"
+        Foreground="Black" ScrollViewer.VerticalScrollBarVisibility="Disabled" BorderThickness="1" 
+        UseLayoutRounding="True" TextOptions.TextHintingMode="Animated" ResizeMode="CanResizeWithGrip"  FontFamily="Segoe UI Light" FontSize="17"
+
+        FontWeight="Light" BorderBrush="Green" WindowStyle="SingleBorderWindow">
+    <Window.Resources>
+        <Storyboard x:Key="MenuOpen">
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.Width)" Storyboard.TargetName="GridMenu" >
+                <EasingDoubleKeyFrame KeyTime="0" Value="60"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.4" Value="200"/>
+            </DoubleAnimationUsingKeyFrames>
+        </Storyboard>
+        <Storyboard x:Key="MenuClose">
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.Width)" Storyboard.TargetName="GridMenu" >
+                <EasingDoubleKeyFrame KeyTime="0" Value="200"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.4" Value="60"/>
+            </DoubleAnimationUsingKeyFrames>
+        </Storyboard>
+
+        <Style x:Key="CardStyle1" TargetType="{x:Type materialDesign:Card}">
+            <Setter Property="Background" Value="#2fff0000"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type materialDesign:Card}">
+                        <Grid Margin="{TemplateBinding Margin}" Background="Transparent">
+                            <AdornerDecorator>
+                                <AdornerDecorator.CacheMode>
+                                    <BitmapCache EnableClearType="True" SnapsToDevicePixels="True"/>
+                                </AdornerDecorator.CacheMode>
+                                <Border Effect="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=(materialDesign:ShadowAssist.ShadowDepth), Converter={x:Static materialDesign:ShadowConverter.Instance}}"
+                    CornerRadius="{TemplateBinding UniformCornerRadius}">
+                                    <Border Background="{TemplateBinding Background}" Padding="{TemplateBinding Padding}" 
+                        x:Name="PART_ClipBorder"
+                        Clip="{TemplateBinding ContentClip}" />
+                                </Border>
+                            </AdornerDecorator>
+                            <ContentPresenter 
+            x:Name="ContentPresenter"                    
+            Margin="{TemplateBinding Padding}"
+            Clip="{TemplateBinding ContentClip}"
+            Content="{TemplateBinding ContentControl.Content}" 
+            ContentTemplate="{TemplateBinding ContentControl.ContentTemplate}" 
+            ContentTemplateSelector="{TemplateBinding ContentControl.ContentTemplateSelector}" 
+            ContentStringFormat="{TemplateBinding ContentControl.ContentStringFormat}">
+                            </ContentPresenter>
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="PART_ClipBorder" Property="Background" Value="#1C1C1C" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+    </Window.Resources>
+
+    <Window.Triggers>
+        <EventTrigger RoutedEvent="ButtonBase.Click" SourceName="BtnClose">
+            <BeginStoryboard Storyboard="{StaticResource MenuClose}"/>
+        </EventTrigger>
+
+        <EventTrigger RoutedEvent="ButtonBase.Click" SourceName="BtnExpand">
+            <BeginStoryboard Storyboard="{StaticResource MenuOpen}"/>
+        </EventTrigger>
+    </Window.Triggers>
+    <Grid x:Name="toppanel">
+        <Grid Height="70" VerticalAlignment="Top" Background="{StaticResource ContentBackground}">
+            <StackPanel VerticalAlignment="Center" Orientation="Horizontal" HorizontalAlignment="Right" Background="{StaticResource ContentBackground}">
+                <TextBlock Text="User name" FontSize="15" VerticalAlignment="Center" Foreground="{StaticResource TextColor}"/>
+                <materialDesign:PopupBox Margin="10" Foreground="{StaticResource TextColor}"
+                                         PlacementMode="BottomAndAlignRightEdges" StaysOpen="False">
+                    <StackPanel Width="150">
+                        <Button Content="Account" Foreground="{StaticResource TextColor}"/>
+                        <Button Content="Settings" Foreground="{StaticResource TextColor}"/>
+                        <Button Content="Help" Foreground="{StaticResource TextColor}"/>
+                        <Separator/>
+                        <Button Content="Logout" Foreground="{StaticResource TextColor}"/>
+                    </StackPanel>
+                </materialDesign:PopupBox>
+            </StackPanel>
+        </Grid>
+        <Grid x:Name="GridMenu" Width="60" HorizontalAlignment="Left" Background="{StaticResource ContentBackground}" materialDesign:ShadowAssist.ShadowDepth="Depth2" materialDesign:ShadowAssist.ShadowEdges="Right">
+            <StackPanel>
+                <Grid Height="150" Background="{StaticResource ContentBackground}">
+                    <Button x:Name="BtnClose" Width="60" Height="60" Background="{x:Null}"
+                            BorderBrush="{x:Null}" VerticalAlignment="Top" HorizontalAlignment ="Right" 
+                            Visibility="Collapsed"
+                            Click="BtnClose_OnClick" Foreground="{StaticResource TextColor}">
+                        <materialDesign:PackIcon Kind="ArrowLeft" Height="25" Width="25"/>
+                    </Button>
+                    <Button x:Name="BtnExpand" Width="60" Height="60" Background="{x:Null}" 
+                            BorderBrush="{x:Null}" VerticalAlignment="Top" HorizontalAlignment ="Right"
+                            Click="BtnExpand_OnClick" Foreground="{StaticResource TextColor}">
+                        <materialDesign:PackIcon Kind="Menu" Height="25" Width="25"/>
+                    </Button>
+                </Grid>
+                <ListView  Foreground="{StaticResource TextColor}" Background="{StaticResource Header}" BorderBrush="{x:Null}" ScrollViewer.VerticalScrollBarVisibility="Disabled" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+                    <ListViewItem Height="60" x:Name="dbrd" MouseLeftButtonDown="Dbrd_OnMouseLeftButtonDown">
+                        <StackPanel x:Name="btndashboard" Orientation="Horizontal" MouseLeftButtonDown="Btndashboard_OnMouseLeftButtonDown">
+                            <materialDesign:PackIcon Kind="ViewDashboard" Margin="10" Height="30" Width="30" VerticalAlignment="Center"/>
+                            <TextBlock Text="Home" VerticalAlignment="Center" Margin="20, 10"/>
+                        </StackPanel>
+                    </ListViewItem>
+                    <ListViewItem Height="60" x:Name="std" MouseLeftButtonDown="Std_OnMouseLeftButtonDown">
+                        <StackPanel x:Name="btnstudent" Orientation="Horizontal" MouseLeftButtonDown="Btnstudent_OnMouseLeftButtonDown">
+                            <materialDesign:PackIcon Kind="AcademicCap" Margin="10"  Height="30" Width="30" VerticalAlignment="Center"/>
+                            <TextBlock Text="Students" VerticalAlignment="Center" Margin="20, 10"/>
+                        </StackPanel>
+                    </ListViewItem>
+                    <ListViewItem Height="60">
+                        <StackPanel Orientation="Horizontal">
+                            <materialDesign:PackIcon Kind="Circle" Margin="10" Height="30" Width="30" VerticalAlignment="Center"/>
+                            <TextBlock Text="Courses" VerticalAlignment="Center" Margin="20, 10"/>
+                        </StackPanel>
+                    </ListViewItem>
+                    <ListViewItem Height="60">
+                        <StackPanel Orientation="Horizontal">
+                            <materialDesign:PackIcon Kind="UserBadge" Margin="10" Height="30" Width="30" VerticalAlignment="Center"/>
+                            <TextBlock Text="Candidates" VerticalAlignment="Center" Margin="20, 10"/>
+                        </StackPanel>
+                    </ListViewItem>
+                    <ListViewItem Height="60">
+                        <StackPanel Orientation="Horizontal">
+                            <materialDesign:PackIcon Kind="SettingsApplications" Margin="10" Height="30" Width="30" VerticalAlignment="Center"/>
+                            <TextBlock Text="Settings" VerticalAlignment="Center" Margin="20, 10"/>
+                        </StackPanel>
+                    </ListViewItem>
+                </ListView>
+            </StackPanel>
+        </Grid>
+        <!--menu content-->
+        <Grid HorizontalAlignment="Stretch"  Height="Auto" Margin="200,70,200,0"
+              VerticalAlignment="Stretch" Width="Auto">
+            <!--Students-->
+            <StackPanel x:Name="panelstud" Visibility="Visible" Height="Auto" Background="{StaticResource ContentBackground}" 
+                        HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="0,30,0,0">
+                <materialDesign:Card VerticalAlignment="Top"
+                                     materialDesign:ShadowAssist.ShadowDepth="Depth4" UniformCornerRadius="5"
+                                     Height="70" Background="{StaticResource Header}" Margin="10,-20">
+                    <StackPanel Orientation="Horizontal">
+                        <Button Width="70" Height="50" Margin="10,10,0,10"
+                                HorizontalAlignment="Left" Foreground="White"
+                                Background="{x:Null}" BorderThickness="0" ToolTip="Add">
+                            <materialDesign:PackIcon Kind="Plus" Margin="0" Height="30" Width="30"
+                                                     VerticalAlignment="Stretch" HorizontalAlignment="Stretch" RenderTransformOrigin="0.543,0.5"/>
+                        </Button>
+                        <Button Width="70" Height="50" Margin="10,10,0,10" x:Name="studrefresh"
+                                HorizontalAlignment="Left" Click="Studrefresh_OnClick" Foreground="White"
+                                Background="{x:Null}" BorderThickness="0" ToolTip="Refresh">
+                            <materialDesign:PackIcon Kind="Refresh" Margin="0" Height="30" Width="30"
+                                                     VerticalAlignment="Stretch" HorizontalAlignment="Stretch" RenderTransformOrigin="0.543,0.5"/>
+                        </Button>
+                        <StackPanel Margin="0" VerticalAlignment="Center">
+                            <StackPanel Height="40" Margin="10" Width="2" Background="{StaticResource SeparatorColor}"/>
+                        </StackPanel>
+                        <TextBox materialDesign:HintAssist.Hint=" Search..." Margin="15" Width="350" materialDesign:ShadowAssist.ShadowDepth="Depth3"
+                                 materialDesign:HintAssist.HintOpacity="2" SelectionBrush="{StaticResource SeparatorColor}"
+                                 Foreground="{StaticResource TextColor}" CaretBrush="#FF10E21A" FontSize="15" FontWeight="ExtraLight"/>
+                        <!--material Search bar-->
+                    </StackPanel>
+                </materialDesign:Card>
+                
+                <StackPanel Height="Auto" Margin="0 40">
+                    <ProgressBar x:Name="studprogress" Visibility="Collapsed" IsIndeterminate="True" Foreground="#FF42F172"/>
+                <ScrollViewer VerticalAlignment="Stretch" Height="Auto" HorizontalScrollBarVisibility="Disabled"
+                              CanContentScroll="True" VerticalScrollBarVisibility="Visible"
+                              SnapsToDevicePixels="True" TextOptions.TextHintingMode="Animated"
+                              TextOptions.TextFormattingMode="Display" PanningMode="VerticalOnly"
+                              Background="{StaticResource ContentBackground}" Margin="10">
+                    <StackPanel Margin="0" ScrollViewer.CanContentScroll="True">
+                        <ItemsControl x:Name="ListStudents" ItemsSource="{Binding Students}"
+                                          ScrollViewer.CanContentScroll="True" ScrollViewer.VerticalScrollBarVisibility="Visible">
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <ListViewItem>
+                                        <materialDesign:Card x:Name="studcard" Margin="5" Width="300" Height="105"
+                                                                 Foreground="{StaticResource TextColor}"
+                                                                 Background="{x:Null}"
+                                                                 BorderBrush="{x:Null}">
+                                            <StackPanel Width="300">
+                                                <Border Width="100" Height="100" HorizontalAlignment="Left" CornerRadius="5">
+                                                    <Border.Background>
+                                                        <ImageBrush ImageSource="{Binding stud_img}" Stretch="UniformToFill" />
+                                                    </Border.Background>
+                                                </Border>
+                                                <ListView Margin="10,-45,0,0" HorizontalAlignment="Right">
+                                                    <StackPanel Orientation="Horizontal" Height="31" Width="35">
+                                                        <materialDesign:PopupBox Margin="0"
+                                                                                     PlacementMode="BottomAndAlignRightEdges"
+                                                                                     Foreground="{StaticResource TextColor}"
+                                                                                     StaysOpen="False" SnapsToDevicePixels="True">
+                                                            <StackPanel Width="150" Margin="0">
+                                                                <Button Content="Edit" Foreground="{StaticResource TextColor}" />
+                                                                <Button Content="Profile" Foreground="{StaticResource TextColor}" />
+                                                            </StackPanel>
+                                                        </materialDesign:PopupBox>
+                                                    </StackPanel>
+                                                </ListView>
+                                                <TextBlock Margin="105,-160,0,0" Text="{Binding Stud_Id}" FontSize="12"
+                                                               Height="20" FontFamily="Tahoma" FontWeight="Bold"
+                                                               Foreground="DarkGray" />
+                                                <TextBlock Margin="105,-130,0,0" Text="{Binding Full_Name}" FontSize="12"
+                                                               Height="20" FontFamily="Tahoma" FontWeight="Bold" />
+                                                <TextBlock Margin="105,-100,0,0" Text="{Binding Course_Year}" FontSize="12"
+                                                               Height="20" FontFamily="Tahoma" />
+                                            </StackPanel>
+                                        </materialDesign:Card>
+                                    </ListViewItem>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                            <ItemsControl.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <WrapPanel />
+                                </ItemsPanelTemplate>
+                            </ItemsControl.ItemsPanel>
+                        </ItemsControl>
+                    </StackPanel>
+                </ScrollViewer>
+                </StackPanel>
+            </StackPanel>
+            <!--Dashboard-->
+            <StackPanel x:Name="paneldashboard" Visibility="Collapsed" Height="Auto" Margin="0,0,0,0" Background="{StaticResource Background}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                <StackPanel Height="500" Margin="0,30,0,0" HorizontalAlignment="Stretch" 
+                            VerticalAlignment="Stretch" Background="#0E0F12">
+                    <StackPanel Margin="10,-20" x:Name="dashpanel" Orientation="Vertical"
+                                materialDesign:ShadowAssist.ShadowDepth="Depth4" Background="{x:Null}">
+                        <materialDesign:Card materialDesign:ShadowAssist.ShadowDepth="Depth4" Background="{StaticResource Header}"
+                                             Height="80" HorizontalAlignment="Stretch"
+                                             VerticalAlignment="Stretch" Margin="0,0,0,0"
+                                             UniformCornerRadius="5">
+                            <StackPanel HorizontalAlignment="Left" Orientation="Horizontal" Margin="2">
+                                <StackPanel>
+                                    <StackPanel Height="50" Width="150" Margin="5">
+                                        <TextBlock Text="Registered students" HorizontalAlignment="Center" FontSize="12" FontFamily="Tahoma" Foreground="{StaticResource SubTextColor}"/>
+                                        <TextBlock x:Name="studregister" HorizontalAlignment="Center" Margin="0,5" 
+                                               Text="204" FontFamily="Tahoma Bold" Foreground="{StaticResource TextColor}" VerticalAlignment="Center"/>
+                                    </StackPanel>
+                                </StackPanel>
+                                <StackPanel Margin="0" VerticalAlignment="Center">
+                                    <StackPanel Height="60" Margin="10" Width="2" Background="{StaticResource SeparatorColor}"/>
+                                </StackPanel>
+                                <StackPanel>
+                                    <StackPanel Height="50" Width="150" Margin="5">
+                                        <TextBlock Text="Courses" HorizontalAlignment="Center" FontSize="12" FontFamily="Tahoma" Foreground="{StaticResource SubTextColor}"/>
+                                        <TextBlock x:Name="totcourses" HorizontalAlignment="Center" Margin="0,5" 
+                                               Text="25" FontFamily="Tahoma Bold" Foreground="{StaticResource TextColor}" VerticalAlignment="Center"/>
+                                    </StackPanel>
+                                </StackPanel>
+                                <StackPanel Margin="0" VerticalAlignment="Center">
+                                    <StackPanel Height="60" Margin="10" Width="2" Background="{StaticResource SeparatorColor}"/>
+                                </StackPanel>
+                                <StackPanel>
+                                    <StackPanel Height="50" Width="150" Margin="5">
+                                        <TextBlock Text="Candidates" HorizontalAlignment="Center" FontSize="12" FontFamily="Tahoma" Foreground="{StaticResource SubTextColor}"/>
+                                        <TextBlock x:Name="totcandidates" HorizontalAlignment="Center" Margin="0,5" 
+                                                   Text="0" FontFamily="Tahoma Bold" Foreground="{StaticResource TextColor}" VerticalAlignment="Center"/>
+                                    </StackPanel>
+                                </StackPanel>
+                                <StackPanel Margin="0" VerticalAlignment="Center">
+                                    <StackPanel Height="60" Margin="10" Width="2" Background="{StaticResource SeparatorColor}"/>
+                                </StackPanel>
+                                <StackPanel>
+                                    <StackPanel Height="50" Width="150" Margin="5">
+                                        <TextBlock Text="Partylist" HorizontalAlignment="Center" FontSize="12" FontFamily="Tahoma" Foreground="{StaticResource SubTextColor}"/>
+                                        <TextBlock x:Name="totpartylist" HorizontalAlignment="Center" Margin="0,5" 
+                                                   Text="0" FontFamily="Tahoma Bold" Foreground="{StaticResource TextColor}" VerticalAlignment="Center"/>
+                                    </StackPanel>
+                                </StackPanel>
+                                <StackPanel Margin="0" VerticalAlignment="Center">
+                                    <StackPanel Height="60" Margin="10" Width="2" Background="{StaticResource SeparatorColor}"/>
+                                </StackPanel>
+                            </StackPanel>
+                        </materialDesign:Card>
+
+                    </StackPanel>
+
+                </StackPanel>
+            </StackPanel>
+        </Grid>
+
+    </Grid>
+</Window>

@@ -1,0 +1,22 @@
+﻿<Application x:Class="VTSystemV2.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:VTSystemV2"
+             StartupUri="View/MainWindow.xaml">
+    <Application.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/materialdesigntheme.dark.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Defaults.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Primary/materialdesigncolor.green.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Accent/MaterialDesignColor.Lime.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+            <SolidColorBrush x:Key="Background" Color="#16171B"/>
+            <SolidColorBrush x:Key="Header" Color="#202125"/>
+            <SolidColorBrush x:Key="TextColor" Color="White"/>
+            <SolidColorBrush x:Key="SubTextColor" Color="#76777B"/>
+            <SolidColorBrush x:Key="SeparatorColor" Color="#323337"/>
+            <SolidColorBrush x:Key="ContentBackground" Color="#0E0F12"/>
+        </ResourceDictionary>
+    </Application.Resources>
+</Application>
