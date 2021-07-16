@@ -138,18 +138,22 @@
             </StackPanel>
         </Grid>
         <!--menu content-->
-        <Grid HorizontalAlignment="Stretch"  Height="Auto" Margin="200,70,200,0"
+        <Grid HorizontalAlignment="Stretch"  Height="Auto" Margin="200,70,0,0"
               VerticalAlignment="Stretch" Width="Auto">
             <!--Students-->
-            <StackPanel x:Name="panelstud" Visibility="Visible" Height="Auto" Background="{StaticResource ContentBackground}" 
+            <Grid x:Name="panelstud" Visibility="Visible" Height="Auto" Background="{StaticResource Background}" 
                         HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="0,30,0,0">
-                <materialDesign:Card VerticalAlignment="Top"
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <materialDesign:Card VerticalAlignment="Top" Grid.Row="0"
                                      materialDesign:ShadowAssist.ShadowDepth="Depth4" UniformCornerRadius="5"
                                      Height="70" Background="{StaticResource Header}" Margin="10,-20">
-                    <StackPanel Orientation="Horizontal">
+                    <StackPanel Orientation="Horizontal" >
                         <Button Width="70" Height="50" Margin="10,10,0,10"
                                 HorizontalAlignment="Left" Foreground="White"
-                                Background="{x:Null}" BorderThickness="0" ToolTip="Add">
+                                Background="{x:Null}" BorderThickness="0" ToolTip="Add" PreviewMouseLeftButtonDown="Regstudent_OnPreviewMouseLeftButtonDown">
                             <materialDesign:PackIcon Kind="Plus" Margin="0" Height="30" Width="30"
                                                      VerticalAlignment="Stretch" HorizontalAlignment="Stretch" RenderTransformOrigin="0.543,0.5"/>
                         </Button>
@@ -169,49 +173,43 @@
                     </StackPanel>
                 </materialDesign:Card>
                 
-                <StackPanel Height="Auto" Margin="0 40">
-                    <ProgressBar x:Name="studprogress" Visibility="Collapsed" IsIndeterminate="True" Foreground="#FF42F172"/>
-                <ScrollViewer VerticalAlignment="Stretch" Height="Auto" HorizontalScrollBarVisibility="Disabled"
-                              CanContentScroll="True" VerticalScrollBarVisibility="Visible"
-                              SnapsToDevicePixels="True" TextOptions.TextHintingMode="Animated"
-                              TextOptions.TextFormattingMode="Display" PanningMode="VerticalOnly"
-                              Background="{StaticResource ContentBackground}" Margin="10">
-                    <StackPanel Margin="0" ScrollViewer.CanContentScroll="True">
-                        <ItemsControl x:Name="ListStudents" ItemsSource="{Binding Students}"
-                                          ScrollViewer.CanContentScroll="True" ScrollViewer.VerticalScrollBarVisibility="Visible">
+                <Grid Height="Auto" Grid.Row="1" Margin="0 ,25,0,0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <ProgressBar Grid.Row="0" x:Name="studprogress" Visibility="Collapsed" IsIndeterminate="True" Foreground="{StaticResource ButtonColor}"/>
+                    <ListBox Grid.Row="1" x:Name="ListStudents" ItemsSource="{Binding Students}"
+                              ScrollViewer.VerticalScrollBarVisibility="Visible" >
                             <ItemsControl.ItemTemplate>
                                 <DataTemplate>
-                                    <ListViewItem>
-                                        <materialDesign:Card x:Name="studcard" Margin="5" Width="300" Height="105"
-                                                                 Foreground="{StaticResource TextColor}"
-                                                                 Background="{x:Null}"
-                                                                 BorderBrush="{x:Null}">
-                                            <StackPanel Width="300">
-                                                <Border Width="100" Height="100" HorizontalAlignment="Left" CornerRadius="5">
+                                <ListViewItem HorizontalAlignment="Center" Padding="0" Margin="0">
+                                        <materialDesign:Card x:Name="studcard" Margin="0" Width="300" Height="100" 
+                                                             Background="{x:Null}" BorderBrush="{x:Null}" Padding="0">
+                                            <StackPanel Margin="0">
+                                                <Border Width="100" Height="100" HorizontalAlignment="Left" CornerRadius="50">
                                                     <Border.Background>
                                                         <ImageBrush ImageSource="{Binding stud_img}" Stretch="UniformToFill" />
                                                     </Border.Background>
                                                 </Border>
-                                                <ListView Margin="10,-45,0,0" HorizontalAlignment="Right">
-                                                    <StackPanel Orientation="Horizontal" Height="31" Width="35">
-                                                        <materialDesign:PopupBox Margin="0"
-                                                                                     PlacementMode="BottomAndAlignRightEdges"
-                                                                                     Foreground="{StaticResource TextColor}"
-                                                                                     StaysOpen="False" SnapsToDevicePixels="True">
-                                                            <StackPanel Width="150" Margin="0">
-                                                                <Button Content="Edit" Foreground="{StaticResource TextColor}" />
-                                                                <Button Content="Profile" Foreground="{StaticResource TextColor}" />
-                                                            </StackPanel>
-                                                        </materialDesign:PopupBox>
+                                                <materialDesign:PopupBox Margin="10,-45,0,0"
+                                                                         HorizontalAlignment="Right"
+                                                                         PlacementMode="BottomAndAlignRightEdges"
+                                                                         Foreground="{StaticResource TextColor}"
+                                                                         StaysOpen="False" SnapsToDevicePixels="True">
+                                                    <StackPanel Width="150" Margin="0">
+                                                        <Button Content="Edit" Foreground="{StaticResource TextColor}" />
+                                                        <Button Content="Profile"
+                                                                Foreground="{StaticResource TextColor}" />
                                                     </StackPanel>
-                                                </ListView>
+                                                </materialDesign:PopupBox>
                                                 <TextBlock Margin="105,-160,0,0" Text="{Binding Stud_Id}" FontSize="12"
-                                                               Height="20" FontFamily="Tahoma" FontWeight="Bold"
-                                                               Foreground="DarkGray" />
+                                                           Height="20" FontFamily="Tahoma" FontWeight="Bold"
+                                                           Foreground="DarkGray" />
                                                 <TextBlock Margin="105,-130,0,0" Text="{Binding Full_Name}" FontSize="12"
-                                                               Height="20" FontFamily="Tahoma" FontWeight="Bold" />
+                                                               Height="20" FontFamily="Tahoma" FontWeight="Bold" Foreground="{StaticResource TextColor}" />
                                                 <TextBlock Margin="105,-100,0,0" Text="{Binding Course_Year}" FontSize="12"
-                                                               Height="20" FontFamily="Tahoma" />
+                                                               Height="20" FontFamily="Tahoma" Foreground="{StaticResource TextColor}"/>
                                             </StackPanel>
                                         </materialDesign:Card>
                                     </ListViewItem>
@@ -222,13 +220,11 @@
                                     <WrapPanel />
                                 </ItemsPanelTemplate>
                             </ItemsControl.ItemsPanel>
-                        </ItemsControl>
-                    </StackPanel>
-                </ScrollViewer>
-                </StackPanel>
-            </StackPanel>
+                        </ListBox>
+                    </Grid>
+            </Grid>
             <!--Dashboard-->
-            <StackPanel x:Name="paneldashboard" Visibility="Collapsed" Height="Auto" Margin="0,0,0,0" Background="{StaticResource Background}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+            <StackPanel  x:Name="paneldashboard" Visibility="Collapsed" Height="Auto" Margin="0,0,0,0" Background="{StaticResource Background}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
                 <StackPanel Height="500" Margin="0,30,0,0" HorizontalAlignment="Stretch" 
                             VerticalAlignment="Stretch" Background="#0E0F12">
                     <StackPanel Margin="10,-20" x:Name="dashpanel" Orientation="Vertical"

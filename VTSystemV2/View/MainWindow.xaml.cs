@@ -91,5 +91,13 @@ namespace VTSystemV2.View
         {
             await FillStudents();
         }
+
+        private void Regstudent_OnPreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            RegisterStudentWindow registerStudent = new RegisterStudentWindow();
+            Opacity = 0.4;
+            registerStudent.ShowDialog();
+            Opacity = 1;
+        }
     }
 }

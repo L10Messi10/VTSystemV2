@@ -11,12 +11,13 @@
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Primary/materialdesigncolor.green.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Accent/MaterialDesignColor.Lime.xaml" />
             </ResourceDictionary.MergedDictionaries>
-            <SolidColorBrush x:Key="Background" Color="#16171B"/>
-            <SolidColorBrush x:Key="Header" Color="#202125"/>
-            <SolidColorBrush x:Key="TextColor" Color="White"/>
+            <SolidColorBrush x:Key="Background" Color="#171717"/>
+            <SolidColorBrush x:Key="Header" Color="#444444"/>
+            <SolidColorBrush x:Key="TextColor" Color="#EDEDED"/>
             <SolidColorBrush x:Key="SubTextColor" Color="#76777B"/>
             <SolidColorBrush x:Key="SeparatorColor" Color="#323337"/>
             <SolidColorBrush x:Key="ContentBackground" Color="#0E0F12"/>
+            <SolidColorBrush x:Key="ButtonColor" Color="#DA0037"/>
         </ResourceDictionary>
     </Application.Resources>
 </Application>
