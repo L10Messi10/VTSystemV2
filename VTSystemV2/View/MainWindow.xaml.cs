@@ -52,7 +52,7 @@ namespace VTSystemV2.View
             Sqlcmd.CommandText = Strsql;
             Sqlcmd.Connection = Cnn;
             Sqladapter.SelectCommand = Sqlcmd;
-            Sqlreader = Sqlcmd.ExecuteReader();
+            Sqlreader = await Sqlcmd.ExecuteReaderAsync();
             DataTable dt = new DataTable();
             dt.Load(Sqlreader);
             ListStudents.ItemsSource = dt.DefaultView;

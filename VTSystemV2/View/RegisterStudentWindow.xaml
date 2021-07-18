@@ -6,8 +6,9 @@
         xmlns:local="clr-namespace:VTSystemV2.View"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         Topmost="True" ShowInTaskbar="False"
+        Loaded="RegisterStudentWindow_OnLoaded"
         mc:Ignorable="d" Background="{StaticResource Background}" WindowStartupLocation="CenterScreen"
-        Title="Register Student" Height="610" Width="500" WindowStyle="ToolWindow" ResizeMode="NoResize">
+        Title="Register Student" Height="620" Width="500" WindowStyle="ToolWindow" ResizeMode="NoResize">
     <Grid>
         <Grid Margin="20">
             <Grid.RowDefinitions>
@@ -29,27 +30,40 @@
                                  Background="{StaticResource Header}">
                 <StackPanel Margin="10">
                     <TextBox materialDesign:HintAssist.Hint="ID #" Margin="0" Foreground="White"
-                             materialDesign:HintAssist.IsFloating="True" />
+                             materialDesign:HintAssist.IsFloating="True" 
+                             x:Name="studid" />
                     <TextBox materialDesign:HintAssist.Hint="First Name" Margin="0" Foreground="White"
-                             materialDesign:HintAssist.IsFloating="True" />
+                             materialDesign:HintAssist.IsFloating="True" 
+                             x:Name="fname"/>
                     <TextBox materialDesign:HintAssist.Hint="Last Name" Margin="0" Foreground="White"
-                             materialDesign:HintAssist.IsFloating="True" />
+                             materialDesign:HintAssist.IsFloating="True"
+                             x:Name="lname"/>
                     <TextBox materialDesign:HintAssist.Hint="Middle Initial" MaxLength="1" Margin="0"
                              Foreground="White"
-                             materialDesign:HintAssist.IsFloating="True" />
-                    <TextBox materialDesign:HintAssist.Hint="Address" Margin="0" Foreground="White"
-                             materialDesign:HintAssist.IsFloating="True" />
+                             materialDesign:HintAssist.IsFloating="True" 
+                             x:Name="minitial"/>
                     <ComboBox materialDesign:HintAssist.Hint="Year level" Foreground="White"
-                              materialDesign:HintAssist.IsFloating="True" />
+                              materialDesign:HintAssist.IsFloating="True" 
+                              x:Name="yrlevel"/>
                     <ComboBox materialDesign:HintAssist.Hint="Course / Department" Foreground="White"
-                              materialDesign:HintAssist.IsFloating="True" />
+                              materialDesign:HintAssist.IsFloating="True" 
+                              x:Name="course"/>
+                    <ComboBox materialDesign:HintAssist.Hint="Voter's Category" Foreground="White"
+                              materialDesign:HintAssist.IsFloating="True" 
+                              x:Name="vtCategory"/>
+                    <ProgressBar Grid.Row="0" x:Name="saveprogress" Visibility="Hidden"
+                                 Margin="10"
+                                 Background="{x:Null}" BorderBrush="{x:Null}"
+                                 IsIndeterminate="True" Foreground="{StaticResource ButtonColor}"/>
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="10">
                         <Button HorizontalAlignment="Right" Content="Save" Width="100"
                                 Background="{StaticResource ButtonColor}"
-                                Foreground="{StaticResource TextColor}" BorderBrush="{StaticResource ButtonColor}"/>
+                                Foreground="{StaticResource TextColor}" BorderBrush="{StaticResource ButtonColor}"
+                                Click="SaveData_OnClick"/>
                         <Button Margin="10" HorizontalAlignment="Right" Content="Cancel" Width="100"
                                 Background="{StaticResource ButtonColor}"
-                                Foreground="{StaticResource TextColor}" BorderBrush="{StaticResource ButtonColor}" />
+                                Foreground="{StaticResource TextColor}" BorderBrush="{StaticResource ButtonColor}" 
+                                Click="Cancel_OnClick"/>
                     </StackPanel></StackPanel>
             </materialDesign:Card>
         </Grid>
