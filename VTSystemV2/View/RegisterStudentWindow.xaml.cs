@@ -14,7 +14,10 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using Microsoft.Win32;
 using static VTSystemV2.Includes.SqlConfig;
-using Image = System.Windows.Controls.Image;
+using ToastNotifications;
+using ToastNotifications.Lifetime;
+using ToastNotifications.Messages;
+using ToastNotifications.Position;
 
 namespace VTSystemV2.View
 {
@@ -30,6 +33,20 @@ namespace VTSystemV2.View
         {
             InitializeComponent();
         }
+        Notifier notifier = new Notifier(cfg =>
+        {
+            cfg.PositionProvider = new WindowPositionProvider(
+                parentWindow: Application.Current.MainWindow,
+                corner: Corner.BottomRight,
+                offsetX: 10,
+                offsetY: 10);
+
+            cfg.LifetimeSupervisor = new TimeAndCountBasedLifetimeSupervisor(
+                notificationLifetime: TimeSpan.FromSeconds(3),
+                maximumNotificationCount: MaximumNotificationCount.FromCount(5));
+
+            cfg.Dispatcher = Application.Current.Dispatcher;
+        });
 
         private void BtnBrowse_OnPreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
@@ -111,6 +128,30 @@ namespace VTSystemV2.View
 
         private async void SaveData_OnClick(object sender, RoutedEventArgs e)
         {
+            if (studid.Text == "")
+            {
+                notifier.ShowError("Please enter Student's Id #");
+                studid.Focus();
+                return;
+            }
+            if (fname.Text == "")
+            {
+                notifier.ShowError("Please enter Student's First name");
+                fname.Focus();
+                return;
+            }
+            if (lname.Text == "")
+            {
+                notifier.ShowError("Please enter Student's Last name");
+                lname.Focus();
+                return;
+            }
+            if (minitial.Text == "")
+            {
+                notifier.ShowError("Please enter Student's Middle initial");
+                fname.Focus();
+                return;
+            }
             saveprogress.Visibility = Visibility.Visible;
             await Xaddmode();
             saveprogress.Visibility = Visibility.Collapsed;
@@ -120,8 +161,8 @@ namespace VTSystemV2.View
             //try
             //{
                 Sqlcmd.Parameters.Clear();
-                Bitmap temp = new Bitmap(_selectedFileName);
-                MemoryStream strm = new MemoryStream();
+                Bitmap temp = new(_selectedFileName);
+                MemoryStream strm = new();
                 temp.Save(strm, System.Drawing.Imaging.ImageFormat.Jpeg);
                 _imagebytearray = strm.ToArray();
                 await Conopen();
