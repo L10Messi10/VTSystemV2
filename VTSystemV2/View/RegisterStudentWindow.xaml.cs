@@ -18,6 +18,7 @@ using ToastNotifications;
 using ToastNotifications.Lifetime;
 using ToastNotifications.Messages;
 using ToastNotifications.Position;
+using static VTSystemV2.App;
 
 namespace VTSystemV2.View
 {
@@ -207,23 +208,6 @@ namespace VTSystemV2.View
             Strsql = "";
         }
         //Convert byte image to imagesource
-        private static BitmapImage LoadImage(byte[] imageData)
-        {
-            if (imageData == null || imageData.Length == 0) return null;
-            var image = new BitmapImage();
-            using (var mem = new MemoryStream(imageData))
-            {
-                mem.Position = 0;
-                image.BeginInit();
-                image.CreateOptions = BitmapCreateOptions.PreservePixelFormat;
-                image.CacheOption = BitmapCacheOption.OnLoad;
-                image.UriSource = null;
-                image.StreamSource = mem;
-                image.EndInit();
-            }
-            image.Freeze();
-            return image;
-        }
         private async Task Xaddmode()
         {
             try

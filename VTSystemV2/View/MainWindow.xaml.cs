@@ -6,8 +6,10 @@ using System.IO;
 using System.Net.Mime;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Input;
 using VTSystemV2.Models;
+using static VTSystemV2.App;
 using static VTSystemV2.Includes.SqlConfig;
 
 namespace VTSystemV2.View
@@ -17,6 +19,7 @@ namespace VTSystemV2.View
     /// </summary>
     public partial class MainWindow : Window
     {
+        public List<Students> studentsList = new();
         public MainWindow()
         {
             InitializeComponent();
@@ -48,18 +51,27 @@ namespace VTSystemV2.View
             studprogress.Visibility = Visibility.Visible;
             await Conopen();
             Sqlcmd.Parameters.Clear();
+            studentsList.Clear();
+            ListStudents.ItemsSource = null;
             Strsql = "Select TOP 50 * from V_Students order by stud_id";
             Sqlcmd.CommandText = Strsql;
             Sqlcmd.Connection = Cnn;
             Sqladapter.SelectCommand = Sqlcmd;
             Sqlreader = await Sqlcmd.ExecuteReaderAsync();
-            DataTable dt = new DataTable();
-            dt.Load(Sqlreader);
-            ListStudents.ItemsSource = dt.DefaultView;
+            while (Sqlreader.Read())
+            {
+                studentsList.Add(new Students
+                {
+                    Stud_Id = Sqlreader["Stud_Id"].ToString(),
+                    Full_Name = Sqlreader["Full_Name"].ToString(),
+                    Course_Year = Sqlreader["Course_Year"].ToString(),
+                    stud_img = LoadImage((byte[]) Sqlreader["stud_img"])
+                });
+            }
             Sqlcmd.Dispose();
             Sqlreader.Close();
             Cnn.Close();
-            Strsql = "";
+            ListStudents.ItemsSource = studentsList;
             studprogress.Visibility = Visibility.Collapsed;
         }
 
@@ -98,6 +110,29 @@ namespace VTSystemV2.View
             Opacity = 0.4;
             registerStudent.ShowDialog();
             Opacity = 1;
+        }
+
+        private void EditStudent_OnClick(object sender, RoutedEventArgs e)
+        {
+            //Can't select a student using the popupbox only
+            //var stud = ListStudents.SelectedItem as Students;
+            //if (stud != null) SelectedStudId = stud.Stud_Id;
+        }
+
+        private void EditStudent_OnPreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            var stud = ListStudents.SelectedItem as Students;
+            if (stud != null)
+            {
+                SelectedStudId = stud.Stud_Id;
+            }
+        }
+
+        private void ListStudents_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            //dynamic
+            var stud = ListStudents.SelectedItem as Students;
+            //if (stud != null) SelectedStudId = stud.Stud_Id;
         }
     }
 }
