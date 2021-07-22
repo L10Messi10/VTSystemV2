@@ -86,10 +86,20 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Includes\ImageHelper.cs" />
+    <Compile Include="View\CandidateRegistrationWindow.xaml.cs">
+      <DependentUpon>CandidateRegistrationWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="View\RegisterStudentWindow.xaml.cs">
       <DependentUpon>RegisterStudentWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="View\ServerSettingWindow.xaml.cs">
+      <DependentUpon>ServerSettingWindow.xaml</DependentUpon>
+    </Compile>
     <Page Include="ViewMessageBox\OkWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\CandidateRegistrationWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -118,6 +128,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="View\RegisterStudentWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\ServerSettingWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
