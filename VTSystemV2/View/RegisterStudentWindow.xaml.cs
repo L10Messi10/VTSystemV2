@@ -18,6 +18,7 @@ using ToastNotifications;
 using ToastNotifications.Lifetime;
 using ToastNotifications.Messages;
 using ToastNotifications.Position;
+using VTSystemV2.Includes;
 using static VTSystemV2.App;
 
 namespace VTSystemV2.View
@@ -119,6 +120,10 @@ namespace VTSystemV2.View
         private async void RegisterStudentWindow_OnLoaded(object sender, RoutedEventArgs e)
         {
             await XfillComboboxes();
+            if (!Xadd)
+            {
+                await XDisplayEdit();
+            }
         }
 
         private void Cancel_OnClick(object sender, RoutedEventArgs e)
@@ -171,7 +176,15 @@ namespace VTSystemV2.View
                 return;
             }
             saveprogress.Visibility = Visibility.Visible;
-            await Xaddmode();
+            if (Xadd)
+            {
+                await Xaddmode();
+            }
+            else
+            {
+                await XEditMode();
+            }
+            
             saveprogress.Visibility = Visibility.Collapsed;
         }
         private async Task XDisplayEdit()
@@ -180,7 +193,7 @@ namespace VTSystemV2.View
             //bunifuTextBox1.Text = Form1.XID;
             Sqlcmd.Parameters.Clear();
             await Conopen();
-            Strsql = "Select * from tbl_Students where stud_id = '" + studid.Text + "'";
+            Strsql = "Select * from tbl_Students where stud_id = '" + SelectedStudId + "'";
             Sqlcmd.CommandText = Strsql;
             Sqlcmd.Connection = Cnn;
             Sqladapter.SelectCommand = Sqlcmd;
@@ -188,13 +201,14 @@ namespace VTSystemV2.View
             //metroComboBox1.Items.Clear();
             if (Sqlreader.Read())
             {
-                studid.Text = Sqlreader.GetValue(0).ToString();
-                fname.Text = Sqlreader.GetValue(1).ToString();
-                lname.Text = Sqlreader.GetValue(2).ToString();
-                minitial.Text = Sqlreader.GetValue(3).ToString();
+                studid.Text = Sqlreader.GetValue(1).ToString();
+                fname.Text = Sqlreader.GetValue(2).ToString();
+                lname.Text = Sqlreader.GetValue(3).ToString();
+                minitial.Text = Sqlreader.GetValue(4).ToString();
                 course.Text = Sqlreader.GetValue(5).ToString();
                 yrlevel.Text = Sqlreader.GetValue(6).ToString();
-                img = (byte[])Sqlreader.GetValue(7);
+                vtCategory.Text = Sqlreader.GetValue(7).ToString();
+                img = (byte[])Sqlreader.GetValue(8);
                 if (img.Length != 0)
                 {
                     //studimg.ImageSource = (ImageBrush)Image.FromStream(new MemoryStream(img));
@@ -232,7 +246,7 @@ namespace VTSystemV2.View
                 Sqlcmd.Parameters.AddWithValue("@vtc_desc", vtCategory.Text);
                 Sqlcmd.Connection = Cnn;
                 Sqlcmd.CommandText = Strsql;
-                await Sqlcmd.ExecuteNonQueryAsync();
+                _ = await Sqlcmd.ExecuteNonQueryAsync();
                 Sqlcmd.Dispose();
                 Strsql = "";
                 Cnn.Close();
@@ -242,18 +256,58 @@ namespace VTSystemV2.View
             }
             catch
             {
-                //var a = new T_Message();
-                //var frmok = new FrmOk();
-                //a.Show(this);
-                //frmok.titletxt.Text = "Error";
-                //frmok.msgtxt.Text = "The ID # you've Entered is already in the record! Please verify this problem to the registrar!";
-                //frmok.OkDescription = "Error";
-                //frmok.ShowDialog(this);
-                //a.Hide();
-                //studid.Text = "";
-                //studid.Focus();
+                notifier.ShowError("The ID # you've Entered is already in the record! Please verify this problem to the registrar!");
+                studid.Text = "";
+                studid.Focus();
             }
 
+        }
+        private async Task XEditMode()
+        {
+            //var a = LoadImage(studimg.ImageSource);
+            //Image temp = new Bitmap();
+            //try
+            //{
+                Sqlcmd.Parameters.Clear();
+            //var strm = new MemoryStream();
+            ////temp.Save(strm, System.Drawing.Imaging.ImageFormat.Jpeg);
+            //_imagebytearray = strm.ToArray();
+            byte[] temp = ImageHelper.ImageSourceToBytes( new JpegBitmapEncoder(), studimg.ImageSource);
+            //MemoryStream strm = new();
+            //temp.Save(strm, System.Drawing.Imaging.ImageFormat.Jpeg);
+            //var a=
+            _imagebytearray = temp.ToArray();
+            await Conopen();
+                Strsql =
+                    "Update tbl_Students set stud_id=@stud_id, Stud_FName=@Stud_FName, Stud_LName=@Stud_LName, Stud_MInit=@Stud_MInit," +
+                    "Crs_Description=@Crs_Description,Yr_Level=@Yr_Level,stud_img=@stud_img, vtc_desc=@vtc_desc Where stud_id=@_preID";
+
+                Sqlcmd.Parameters.AddWithValue("@stud_id", studid.Text);
+                Sqlcmd.Parameters.AddWithValue("@Stud_LName", lname.Text);
+                Sqlcmd.Parameters.AddWithValue("@Stud_FName", fname.Text);
+                Sqlcmd.Parameters.AddWithValue("@Stud_MInit", minitial.Text);
+                Sqlcmd.Parameters.AddWithValue("@Crs_Description", course.Text);
+                Sqlcmd.Parameters.AddWithValue("@Yr_Level", yrlevel.Text);
+                Sqlcmd.Parameters.AddWithValue("@stud_img", _imagebytearray);
+                Sqlcmd.Parameters.AddWithValue("@vtc_desc", vtCategory.Text);
+                Sqlcmd.Parameters.AddWithValue("@_preID", SelectedStudId);
+                Sqlcmd.Connection = Cnn;
+                //sqlcmd.CommandType = CommandType.Text;
+                Sqlcmd.CommandText = Strsql;
+                await Sqlcmd.ExecuteNonQueryAsync();
+                notifier.ShowInformation("Record has been successfully updated!");
+                Sqlcmd.Dispose();
+                Strsql = "";
+                Cnn.Close();
+                Close();
+            //}
+            //catch
+            //{
+                
+            //    notifier.ShowError("The ID # you've Entered is already in the record! Please verify this problem to the registrar!");
+            //    studid.Text = "";
+            //    studid.Focus();
+            //}
         }
 
     }

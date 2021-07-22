@@ -85,6 +85,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Includes\ImageHelper.cs" />
     <Compile Include="View\RegisterStudentWindow.xaml.cs">
       <DependentUpon>RegisterStudentWindow.xaml</DependentUpon>
     </Compile>

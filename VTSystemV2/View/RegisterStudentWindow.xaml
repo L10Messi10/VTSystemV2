@@ -8,15 +8,15 @@
         Topmost="True" ShowInTaskbar="False"
         Loaded="RegisterStudentWindow_OnLoaded"
         mc:Ignorable="d" Background="{StaticResource Background}" WindowStartupLocation="CenterScreen"
-        Title="Register Student" Height="620" Width="500" WindowStyle="ToolWindow" ResizeMode="NoResize">
+        Title="Register Student" Height="625" Width="450" WindowStyle="ToolWindow" ResizeMode="NoResize">
     <Grid>
-        <Grid Margin="20">
+        <Grid Margin="20,20,20,22">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
             <StackPanel Grid.Row="0" Orientation="Horizontal" VerticalAlignment="Top">
-                <Border Width="100" Height="100" HorizontalAlignment="Left" CornerRadius="50">
+                <Border Width="155" Height="155" HorizontalAlignment="Left" CornerRadius="5">
                     <Border.Background>
                         <ImageBrush Stretch="UniformToFill" x:Name="studimg" />
                     </Border.Background>
@@ -27,8 +27,8 @@
                         Margin="10" Content="..." VerticalContentAlignment="Center" Foreground="White" PreviewMouseLeftButtonDown="BtnBrowse_OnPreviewMouseLeftButtonDown"/>
             </StackPanel>
             <materialDesign:Card Grid.Row="1" Margin="10" materialDesign:ShadowAssist.ShadowDepth="Depth4" UniformCornerRadius="10"
-                                 Background="{StaticResource Header}">
-                <StackPanel Margin="10">
+                                 Background="{StaticResource Header}" VerticalContentAlignment="Stretch">
+                <StackPanel Margin="10,10,10,22">
                     <TextBox materialDesign:HintAssist.Hint="ID #" Margin="0" Foreground="White"
                              materialDesign:HintAssist.IsFloating="True" 
                              x:Name="studid" />
@@ -55,16 +55,17 @@
                                  Margin="10"
                                  Background="{x:Null}" BorderBrush="{x:Null}"
                                  IsIndeterminate="True" Foreground="{StaticResource ButtonColor}"/>
-                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="10">
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="10" VerticalAlignment="Bottom">
                         <Button HorizontalAlignment="Right" Content="Save" Width="100"
                                 Background="{StaticResource ButtonColor}"
                                 Foreground="{StaticResource TextColor}" BorderBrush="{StaticResource ButtonColor}"
                                 Click="SaveData_OnClick"/>
-                        <Button Margin="10" HorizontalAlignment="Right" Content="Cancel" Width="100"
-                                Background="{StaticResource ButtonColor}"
-                                Foreground="{StaticResource TextColor}" BorderBrush="{StaticResource ButtonColor}" 
+                        <Button Margin="10" HorizontalAlignment="Right" Content="Close" Width="100"
+                                Background="Transparent"
+                                Foreground="{StaticResource TextColor}" BorderBrush="Transparent" 
                                 Click="Cancel_OnClick"/>
-                    </StackPanel></StackPanel>
+                    </StackPanel>
+                </StackPanel>
             </materialDesign:Card>
         </Grid>
     </Grid>

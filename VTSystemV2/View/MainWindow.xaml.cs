@@ -8,9 +8,11 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using MaterialDesignThemes.Wpf;
 using VTSystemV2.Models;
 using static VTSystemV2.App;
 using static VTSystemV2.Includes.SqlConfig;
+using static VTSystemV2.View.RegisterStudentWindow;
 
 namespace VTSystemV2.View
 {
@@ -108,6 +110,7 @@ namespace VTSystemV2.View
         {
             RegisterStudentWindow registerStudent = new RegisterStudentWindow();
             Opacity = 0.4;
+            Xadd = true;
             registerStudent.ShowDialog();
             Opacity = 1;
         }
@@ -125,6 +128,11 @@ namespace VTSystemV2.View
             if (stud != null)
             {
                 SelectedStudId = stud.Stud_Id;
+                Xadd = false;
+                RegisterStudentWindow editStudentWindow = new RegisterStudentWindow();
+                Opacity = 0.4;
+                editStudentWindow.ShowDialog();
+                Opacity = 1;
             }
         }
 
