@@ -77,29 +77,6 @@ namespace VTSystemV2.View
             studprogress.Visibility = Visibility.Collapsed;
         }
 
-        private void Btndashboard_OnMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
-        {
-            paneldashboard.Visibility = Visibility.Visible;
-            panelstud.Visibility = Visibility.Collapsed;
-        }
-
-        private void Btnstudent_OnMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
-        {
-            paneldashboard.Visibility = Visibility.Collapsed;
-            panelstud.Visibility = Visibility.Visible;
-        }
-
-        private void Dbrd_OnMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
-        {
-            paneldashboard.Visibility = Visibility.Visible;
-            panelstud.Visibility = Visibility.Collapsed;
-        }
-
-        private void Std_OnMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
-        {
-            paneldashboard.Visibility = Visibility.Collapsed;
-            panelstud.Visibility = Visibility.Visible;
-        }
 
         private async void Studrefresh_OnClick(object sender, RoutedEventArgs e)
         {
@@ -141,6 +118,35 @@ namespace VTSystemV2.View
             //dynamic
             var stud = ListStudents.SelectedItem as Students;
             //if (stud != null) SelectedStudId = stud.Stud_Id;
+        }
+
+        private void RegisterCandidate_OnPreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            CandidateRegistrationWindow candidateRegistration = new();
+            Opacity = 0.4;
+            candidateRegistration.ShowDialog();
+            Opacity = 1;
+        }
+
+        private void Candid_OnPreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            panelcandidate.Visibility = Visibility.Visible;
+            panelstud.Visibility = Visibility.Collapsed;
+            paneldashboard.Visibility = Visibility.Collapsed;
+        }
+
+        private void Std_OnPreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            panelstud.Visibility = Visibility.Visible;
+            paneldashboard.Visibility = Visibility.Collapsed;
+            panelcandidate.Visibility = Visibility.Collapsed;
+        }
+
+        private void Dbrd_OnPreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            paneldashboard.Visibility = Visibility.Visible;
+            panelstud.Visibility = Visibility.Collapsed;
+            panelcandidate.Visibility = Visibility.Collapsed;
         }
     }
 }

@@ -25,7 +25,7 @@ namespace VTSystemV2.Includes
             //uid = Properties.Settings.Default.uid;
             //upass = Properties.Settings.Default.pass;
             string Cstring = null;
-            Cstring = "Data Source = 192.168.102.59;Network Library=DBMSSOCN;Initial Catalog=DB_VotingSystem;User ID=sa;Password=administrator01;";
+            Cstring = "Data Source = 192.168.102.210;Network Library=DBMSSOCN;Initial Catalog=DB_VotingSystem;User ID=sa;Password=administrator01;";
             Cnn = new SqlConnection(Cstring);
             await Cnn.OpenAsync();
             //}

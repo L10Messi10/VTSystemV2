@@ -60,6 +60,89 @@
                 </Setter.Value>
             </Setter>
         </Style>
+        <Storyboard x:Key="CandidateAppear">
+            <ThicknessAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.Margin)" Storyboard.TargetName="panelcandidate">
+                <EasingThicknessKeyFrame KeyTime="0" Value="0,55,0,0">
+                    <EasingThicknessKeyFrame.EasingFunction>
+                        <QuadraticEase EasingMode="EaseIn"/>
+                    </EasingThicknessKeyFrame.EasingFunction>
+                </EasingThicknessKeyFrame>
+                <EasingThicknessKeyFrame KeyTime="0:0:1" Value="0,30,0,0">
+                    <EasingThicknessKeyFrame.EasingFunction>
+                        <QuadraticEase EasingMode="EaseInOut"/>
+                    </EasingThicknessKeyFrame.EasingFunction>
+                </EasingThicknessKeyFrame>
+            </ThicknessAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="panelcandidate">
+                <EasingDoubleKeyFrame KeyTime="0" Value="0"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.2" Value="0">
+                    <EasingDoubleKeyFrame.EasingFunction>
+                        <QuadraticEase EasingMode="EaseIn"/>
+                    </EasingDoubleKeyFrame.EasingFunction>
+                </EasingDoubleKeyFrame>
+                <EasingDoubleKeyFrame KeyTime="0:0:1" Value="1">
+                    <EasingDoubleKeyFrame.EasingFunction>
+                        <QuadraticEase EasingMode="EaseInOut"/>
+                    </EasingDoubleKeyFrame.EasingFunction>
+                </EasingDoubleKeyFrame>
+            </DoubleAnimationUsingKeyFrames>
+        </Storyboard>
+        <Storyboard x:Key="DashboardAppear">
+            <ThicknessAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.Margin)" Storyboard.TargetName="paneldashboard">
+                <EasingThicknessKeyFrame KeyTime="0" Value="0,55,0,0">
+                    <EasingThicknessKeyFrame.EasingFunction>
+                        <QuadraticEase EasingMode="EaseIn"/>
+                    </EasingThicknessKeyFrame.EasingFunction>
+                </EasingThicknessKeyFrame>
+                <EasingThicknessKeyFrame KeyTime="0:0:1" Value="0">
+                    <EasingThicknessKeyFrame.EasingFunction>
+                        <QuadraticEase EasingMode="EaseInOut"/>
+                    </EasingThicknessKeyFrame.EasingFunction>
+                </EasingThicknessKeyFrame>
+            </ThicknessAnimationUsingKeyFrames>
+            <ThicknessAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.Margin)" Storyboard.TargetName="panelcandidate">
+                <EasingThicknessKeyFrame KeyTime="0" Value="0,-55,0,0"/>
+            </ThicknessAnimationUsingKeyFrames>
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="paneldashboard">
+                <EasingDoubleKeyFrame KeyTime="0" Value="0"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:0.2" Value="0">
+                    <EasingDoubleKeyFrame.EasingFunction>
+                        <QuadraticEase EasingMode="EaseIn"/>
+                    </EasingDoubleKeyFrame.EasingFunction>
+                </EasingDoubleKeyFrame>
+                <EasingDoubleKeyFrame KeyTime="0:0:1" Value="1">
+                    <EasingDoubleKeyFrame.EasingFunction>
+                        <QuadraticEase EasingMode="EaseInOut"/>
+                    </EasingDoubleKeyFrame.EasingFunction>
+                </EasingDoubleKeyFrame>
+            </DoubleAnimationUsingKeyFrames>
+        </Storyboard>
+        <Storyboard x:Key="StudentAppear">
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="panelstud">
+                <EasingDoubleKeyFrame KeyTime="0" Value="0">
+                    <EasingDoubleKeyFrame.EasingFunction>
+                        <QuadraticEase EasingMode="EaseIn"/>
+                    </EasingDoubleKeyFrame.EasingFunction>
+                </EasingDoubleKeyFrame>
+                <EasingDoubleKeyFrame KeyTime="0:0:1" Value="1">
+                    <EasingDoubleKeyFrame.EasingFunction>
+                        <QuadraticEase EasingMode="EaseInOut"/>
+                    </EasingDoubleKeyFrame.EasingFunction>
+                </EasingDoubleKeyFrame>
+            </DoubleAnimationUsingKeyFrames>
+            <ThicknessAnimationUsingKeyFrames Storyboard.TargetProperty="(FrameworkElement.Margin)" Storyboard.TargetName="panelstud">
+                <EasingThicknessKeyFrame KeyTime="0" Value="0,55,0,0">
+                    <EasingThicknessKeyFrame.EasingFunction>
+                        <QuadraticEase EasingMode="EaseIn"/>
+                    </EasingThicknessKeyFrame.EasingFunction>
+                </EasingThicknessKeyFrame>
+                <EasingThicknessKeyFrame KeyTime="0:0:1" Value="0,30,0,0">
+                    <EasingThicknessKeyFrame.EasingFunction>
+                        <QuadraticEase EasingMode="EaseInOut"/>
+                    </EasingThicknessKeyFrame.EasingFunction>
+                </EasingThicknessKeyFrame>
+            </ThicknessAnimationUsingKeyFrames>
+        </Storyboard>
 
     </Window.Resources>
 
@@ -70,6 +153,15 @@
 
         <EventTrigger RoutedEvent="ButtonBase.Click" SourceName="BtnExpand">
             <BeginStoryboard Storyboard="{StaticResource MenuOpen}"/>
+        </EventTrigger>
+        <EventTrigger RoutedEvent="UIElement.PreviewMouseLeftButtonDown" SourceName="Candid">
+            <BeginStoryboard x:Name="CandidateAppear_BeginStoryboard" Storyboard="{StaticResource CandidateAppear}"/>
+        </EventTrigger>
+        <EventTrigger RoutedEvent="UIElement.PreviewMouseLeftButtonDown" SourceName="dbrd">
+            <BeginStoryboard Storyboard="{StaticResource DashboardAppear}"/>
+        </EventTrigger>
+        <EventTrigger RoutedEvent="UIElement.PreviewMouseLeftButtonDown" SourceName="std">
+            <BeginStoryboard Storyboard="{StaticResource StudentAppear}"/>
         </EventTrigger>
     </Window.Triggers>
     <Grid x:Name="toppanel">
@@ -104,14 +196,14 @@
                     </Button>
                 </Grid>
                 <ListView  Foreground="{StaticResource TextColor}" Background="{StaticResource Header}" BorderBrush="{x:Null}" ScrollViewer.VerticalScrollBarVisibility="Disabled" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
-                    <ListViewItem Height="60" x:Name="dbrd" MouseLeftButtonDown="Dbrd_OnMouseLeftButtonDown">
-                        <StackPanel x:Name="btndashboard" Orientation="Horizontal" MouseLeftButtonDown="Btndashboard_OnMouseLeftButtonDown">
+                    <ListViewItem Height="60" x:Name="dbrd" PreviewMouseLeftButtonDown="Dbrd_OnPreviewMouseLeftButtonDown">
+                        <StackPanel x:Name="btndashboard" Orientation="Horizontal">
                             <materialDesign:PackIcon Kind="ViewDashboard" Margin="10" Height="30" Width="30" VerticalAlignment="Center"/>
                             <TextBlock Text="Home" VerticalAlignment="Center" Margin="20, 10"/>
                         </StackPanel>
                     </ListViewItem>
-                    <ListViewItem Height="60" x:Name="std" MouseLeftButtonDown="Std_OnMouseLeftButtonDown">
-                        <StackPanel x:Name="btnstudent" Orientation="Horizontal" MouseLeftButtonDown="Btnstudent_OnMouseLeftButtonDown">
+                    <ListViewItem Height="60" x:Name="std" PreviewMouseLeftButtonDown="Std_OnPreviewMouseLeftButtonDown">
+                        <StackPanel x:Name="btnstudent" Orientation="Horizontal">
                             <materialDesign:PackIcon Kind="AcademicCap" Margin="10"  Height="30" Width="30" VerticalAlignment="Center"/>
                             <TextBlock Text="Students" VerticalAlignment="Center" Margin="20, 10"/>
                         </StackPanel>
@@ -122,7 +214,7 @@
                             <TextBlock Text="Courses" VerticalAlignment="Center" Margin="20, 10"/>
                         </StackPanel>
                     </ListViewItem>
-                    <ListViewItem Height="60">
+                    <ListViewItem Height="60" x:Name="Candid" PreviewMouseLeftButtonDown="Candid_OnPreviewMouseLeftButtonDown">
                         <StackPanel Orientation="Horizontal">
                             <materialDesign:PackIcon Kind="UserBadge" Margin="10" Height="30" Width="30" VerticalAlignment="Center"/>
                             <TextBlock Text="Candidates" VerticalAlignment="Center" Margin="20, 10"/>
@@ -141,7 +233,7 @@
         <Grid HorizontalAlignment="Stretch"  Height="Auto" Margin="200,70,0,0"
               VerticalAlignment="Stretch" Width="Auto">
             <!--Students-->
-            <Grid x:Name="panelstud" Visibility="Hidden" Height="Auto" Background="{StaticResource Background}" 
+            <Grid x:Name="panelstud" Visibility="Visible" Height="Auto" Background="{StaticResource Background}" 
                         HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="0,30,0,0">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"/>
@@ -178,7 +270,7 @@
                         <!--material Search bar-->
                     </StackPanel>
                 </materialDesign:Card>
-                
+
                 <Grid Height="Auto" Grid.Row="1" Margin="0 ,25,0,0">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto"/>
@@ -187,7 +279,7 @@
                     <ProgressBar Grid.Row="0" x:Name="studprogress" Visibility="Collapsed" IsIndeterminate="True" Foreground="{StaticResource ButtonColor}"/>
                     <ListBox Grid.Row="1" x:Name="ListStudents" ItemsSource="{Binding Students}"
                               ScrollViewer.VerticalScrollBarVisibility="Visible" SelectionMode="Single" SelectionChanged="ListStudents_OnSelectionChanged">
-                            <ListBox.ItemTemplate>
+                        <ListBox.ItemTemplate>
                             <DataTemplate>
                                 <materialDesign:Card x:Name="studcard" Margin="0" Width="300" Height="100" 
                                                              Background="{x:Null}" BorderBrush="{x:Null}" Padding="0">
@@ -219,17 +311,17 @@
                                     </StackPanel>
                                 </materialDesign:Card>
                             </DataTemplate>
-                            </ListBox.ItemTemplate>
-                            <ItemsControl.ItemsPanel>
-                                <ItemsPanelTemplate>
-                                    <WrapPanel />
-                                </ItemsPanelTemplate>
-                            </ItemsControl.ItemsPanel>
-                        </ListBox>
-                    </Grid>
+                        </ListBox.ItemTemplate>
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <WrapPanel />
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+                    </ListBox>
+                </Grid>
             </Grid>
             <!--Dashboard-->
-            <StackPanel  x:Name="paneldashboard" Visibility="Collapsed" Height="Auto" Margin="0,0,0,0" Background="{StaticResource Background}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+            <StackPanel  x:Name="paneldashboard" Visibility="Hidden" Height="Auto" Margin="0,0,0,0" Background="{StaticResource Background}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
                 <StackPanel Height="500" Margin="0,30,0,0" HorizontalAlignment="Stretch" 
                             VerticalAlignment="Stretch" Background="#0E0F12">
                     <StackPanel Margin="10,-20" x:Name="dashpanel" Orientation="Vertical"
@@ -287,7 +379,7 @@
                 </StackPanel>
             </StackPanel>
             <!--Candidates-->
-            <Grid x:Name="panelcandidate" Visibility="Visible" Height="Auto" Background="{StaticResource Background}" 
+            <Grid x:Name="panelcandidate" Visibility="Collapsed" Height="Auto" Background="{StaticResource Background}" 
                         HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="0,30,0,0">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"/>
@@ -299,7 +391,7 @@
                     <StackPanel Orientation="Horizontal" >
                         <Button Width="70" Height="50" Margin="10,10,0,10"
                                 HorizontalAlignment="Left" Foreground="White"
-                                Background="{x:Null}" BorderThickness="0" ToolTip="Add Candidate" >
+                                Background="{x:Null}" BorderThickness="0" ToolTip="Add Candidate" PreviewMouseLeftButtonDown="RegisterCandidate_OnPreviewMouseLeftButtonDown">
                             <materialDesign:PackIcon Kind="PeopleAdd"  Margin="0" Height="30" Width="30"
                                                      VerticalAlignment="Stretch" HorizontalAlignment="Stretch" RenderTransformOrigin="0.543,0.5"/>
                         </Button>
