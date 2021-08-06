@@ -170,13 +170,27 @@
                 <TextBlock Text="User name" FontSize="15" VerticalAlignment="Center" Foreground="{StaticResource TextColor}"/>
                 <materialDesign:PopupBox Margin="10" Foreground="{StaticResource TextColor}"
                                          PlacementMode="BottomAndAlignRightEdges" StaysOpen="False">
-                    <StackPanel Width="150">
+                    <ListView  Foreground="{StaticResource TextColor}" Background="{StaticResource Header}" BorderBrush="{x:Null}" ScrollViewer.VerticalScrollBarVisibility="Disabled" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+                        <ListViewItem Height="60" PreviewMouseLeftButtonDown="Candid_OnPreviewMouseLeftButtonDown">
+                            <StackPanel Orientation="Horizontal">
+                                <materialDesign:PackIcon Kind="UserBadge" Margin="10" Height="30" Width="30" VerticalAlignment="Center"/>
+                                <TextBlock Text="Account" VerticalAlignment="Center" Margin="10, 10"/>
+                            </StackPanel>
+                        </ListViewItem>
+                        <ListViewItem Height="60">
+                            <StackPanel Orientation="Horizontal">
+                                <materialDesign:PackIcon Kind="SettingsApplications" Margin="10" Height="30" Width="30" VerticalAlignment="Center"/>
+                                <TextBlock Text="Settings" VerticalAlignment="Center" Margin="10, 10"/>
+                            </StackPanel>
+                        </ListViewItem>
+                    </ListView>
+                    <!--<StackPanel Width="150">
                         <Button Content="Account" Foreground="{StaticResource TextColor}"/>
                         <Button Content="Settings" Foreground="{StaticResource TextColor}"/>
                         <Button Content="Help" Foreground="{StaticResource TextColor}"/>
                         <Separator/>
                         <Button Content="Logout" Foreground="{StaticResource TextColor}"/>
-                    </StackPanel>
+                    </StackPanel>-->
                 </materialDesign:PopupBox>
             </StackPanel>
         </Grid>
